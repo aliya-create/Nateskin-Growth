@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nateskin Expansion Strategy — Interactive Prototype</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#10b981;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{margin:0;background:linear-gradient(180deg,#071026 0%, #07121a 60%);color:#e6eef6}
+    .app{max-width:1100px;margin:28px auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#34d399,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .title{line-height:1}
+    .title h1{margin:0;font-size:18px}
+    .title p{margin:0;color:var(--muted);font-size:13px}
+
+    /* slide frame */
+    .frame{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;display:grid;grid-template-columns:320px 1fr;gap:18px;box-shadow:0 6px 30px rgba(2,6,23,0.7)}
+
+    /* left nav */
+    nav{padding-right:8px;border-right:1px solid rgba(255,255,255,0.02)}
+    .slides-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .slides-list button{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+    .slides-list button.active{background:var(--glass);color:#fff}
+    .slides-list button span.num{background:rgba(255,255,255,0.04);padding:4px 8px;border-radius:6px;font-size:12px}
+
+    /* main slide area */
+    .slide{min-height:420px;padding:18px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));position:relative}
+    .slide h2{margin:0 0 8px;font-size:20px}
+    .slide p.lead{color:var(--muted);margin-bottom:12px}
+
+    /* simple lists */
+    .columns{display:flex;gap:18px}
+    .box{background:rgba(0,0,0,0.2);padding:12px;border-radius:8px}
+
+    /* KPI chips */
+    .kpis{display:flex;gap:10px;margin:12px 0}
+    .kpi{padding:10px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.12));min-width:120px}
+    .kpi .big{font-size:20px;font-weight:700}
+    .kpi .muted{font-size:12px;color:var(--muted)}
+
+    /* competitive table */
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03)}
+
+    /* testimonials */
+    .testi{display:flex;gap:10px;align-items:center}
+    .testi .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(90deg,#38bdf8,#60a5fa);display:flex;align-items:center;justify-content:center}
+    .muted{color:var(--muted)}
+
+    /* roadmap */
+    .timeline{display:flex;gap:12px;align-items:flex-start}
+    .month{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;min-width:160px}
+
+    /* small interactions */
+    .controls{position:absolute;right:18px;bottom:18px;display:flex;gap:8px}
+    .btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:#fff;cursor:pointer}
+    .btn.ghost{background:transparent}
+
+    /* responsive */
+    @media (max-width:900px){.frame{grid-template-columns:1fr;}.controls{position:static;margin-top:12px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">NZ</div>
+      <div class="title">
+        <h1>Nateskin Expansion Strategy — Australia & Indonesia (2025–26)</h1>
+        <p class="muted">Aliya Zeya | Marketing & Growth Strategy — interactive prototype</p>
+      </div>
+    </header>
+
+    <div class="frame">
+      <nav>
+        <ul class="slides-list" id="nav">
+          <li><button data-i="0" class="active"><span class="num">1</span> Title</button></li>
+          <li><button data-i="1"><span class="num">2</span> Where Nateskin Stands</button></li>
+          <li><button data-i="2"><span class="num">3</span> Why Australia</button></li>
+          <li><button data-i="3"><span class="num">4</span> Why Indonesia</button></li>
+          <li><button data-i="4"><span class="num">5</span> Competitive Table</button></li>
+          <li><button data-i="5"><span class="num">6</span> What Customers Say</button></li>
+          <li><button data-i="6"><span class="num">7</span> Growth Gaps</button></li>
+          <li><button data-i="7"><span class="num">8</span> GTM Australia</button></li>
+          <li><button data-i="8"><span class="num">9</span> GTM Indonesia</button></li>
+          <li><button data-i="9"><span class="num">10</span> Forecast & KPIs</button></li>
+          <li><button data-i="10"><span class="num">11</span> 90-Day Roadmap</button></li>
+        </ul>
+      </nav>
+
+      <main>
+        <!-- Slides container -->
+        <div id="slides">
+
+          <!-- Slide 1 -->
+          <section class="slide" data-index="0">
+            <h2>Nateskin Expansion Strategy 2025–2026</h2>
+            <p class="lead">Market Entry — Australia (Primary) & Indonesia (Secondary)</p>
+            <div class="columns">
+              <div class="box" style="flex:1">
+                <h3 style="margin-top:0">Pitch for a founder</h3>
+                <p class="muted">Position Nateskin as "Premium performance at an honest price" — use Amazon credibility + creator-led product proof to rapidly reduce friction and CAC.</p>
+                <div style="margin-top:12px">
+                  <button class="btn" id="replayHero">Play product demo →</button>
+                </div>
+              </div>
+
+              <div class="box" style="width:240px">
+                <h4 style="margin:0">Key</h4>
+                <div class="kpis" style="flex-direction:column;margin-top:10px">
+                  <div class="kpi"><div class="big" id="kpi1">+20%</div><div class="muted">Expected Amazon uplift</div></div>
+                  <div class="kpi"><div class="big" id="kpi2">-25%</div><div class="muted">Target CAC change</div></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 2 -->
+          <section class="slide" data-index="1" style="display:none">
+            <h2>Where Nateskin Stands Today</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <h3>Strengths</h3>
+                <ul>
+                  <li>Loved for smooth, painless grooming</li>
+                  <li>Affordable alternative to Manscaped</li>
+                  <li>Strong YouTube / Instagram creator presence</li>
+                  <li>Bush Trimmer = hero product</li>
+                </ul>
+              </div>
+              <div class="box" style="flex:1">
+                <h3>Weaknesses</h3>
+                <ul>
+                  <li>Very low presence on Amazon/Walmart/Reddit</li>
+                  <li>Limited reviews outside SEA</li>
+                  <li>Occasional negative mentions: blade rusting / nicks</li>
+                  <li>Not known in western markets</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 3: Australia -->
+          <section class="slide" data-index="2" style="display:none">
+            <h2>Why Australia (Primary Market)</h2>
+            <p class="lead">Opportunity: "Premium performance at affordable price"</p>
+            <div style="display:flex;gap:12px;margin-top:10px;align-items:flex-start">
+              <div class="box" style="flex:1">
+                <ul>
+                  <li>🇦🇺 A$1.2B grooming market, +15% YoY</li>
+                  <li>High acceptance of intimate grooming</li>
+                  <li>Manscaped dominates — price gap for Nateskin</li>
+                  <li>Consumers trust Amazon reviews — Nateskin absent</li>
+                  <li>Influencer + gym culture = strong channels</li>
+                </ul>
+              </div>
+              <div class="box" style="width:220px;min-height:120px">
+                <h4 style="margin-top:0">Interactive</h4>
+                <p class="muted">Toggle to simulate market moves</p>
+                <label><input type="checkbox" id="auPrime" /> Prime delivery + Bundles</label><br>
+                <label><input type="checkbox" id="auUGC" /> 100 review seeds</label>
+                <div style="margin-top:8px"><button class="btn" id="auSim">Run simulation</button></div>
+                <div id="auResult" class="muted" style="margin-top:8px"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 4: Indonesia -->
+          <section class="slide" data-index="3" style="display:none">
+            <h2>Why Indonesia (Secondary Market)</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <ul>
+                  <li>🇮🇩 E-commerce grooming +25% YoY</li>
+                  <li>Price-sensitive — Nateskin's affordability wins</li>
+                  <li>Local competitors are low-quality</li>
+                  <li>Influencer-led conversions are strong</li>
+                  <li>Cultural similarity to Malaysia</li>
+                </ul>
+              </div>
+              <div class="box" style="width:240px">
+                <h4 style="margin-top:0">Launch focus</h4>
+                <p class="muted">TikTok Shop + Shopee; Ramadan & wedding season campaigns</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 5: Competitive Table -->
+          <section class="slide" data-index="4" style="display:none">
+            <h2>Competitive Table</h2>
+            <table>
+              <thead><tr><th>Market</th><th>Competitor</th><th>Strength</th><th>Nateskin Win</th></tr></thead>
+              <tbody>
+                <tr><td>Australia</td><td>Manscaped</td><td>Premium / performance</td><td>Gentle, safe, affordable</td></tr>
+                <tr><td>Indonesia</td><td>Local brands</td><td>Cheap pricing</td><td>Higher quality + influencer trust</td></tr>
+              </tbody>
+            </table>
+            <p class="muted" style="margin-top:10px">Click any row to highlight the strategic win.</p>
+          </section>
+
+          <!-- Slide 6: Customers -->
+          <section class="slide" data-index="5" style="display:none">
+            <h2>What Customers Say — Condensed Insights</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <h4>Consistent Themes</h4>
+                <ul>
+                  <li>✔ Smooth and painless</li>
+                  <li>✔ Trims whole body fast</li>
+                  <li>✔ Waterproof</li>
+                  <li>✔ Great for beginners</li>
+                </ul>
+              </div>
+              <div class="box" style="flex:1">
+                <h4>Key Complaints</h4>
+                <ul>
+                  <li>✘ Blade rusting</li>
+                  <li>✘ Nicks on sensitive areas (rare but critical)</li>
+                </ul>
+                <p class="muted">Suggested message: "Safe. Smooth. Designed for real skin, not just marketing."</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 7: Gaps & Opportunities -->
+          <section class="slide" data-index="6" style="display:none">
+            <h2>Growth Gaps & Opportunities</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <h4>Current Gaps</h4>
+                <ul>
+                  <li>Almost zero presence on Amazon or big marketplaces</li>
+                  <li>Very few independent public reviews</li>
+                  <li>Brand awareness low outside SEA</li>
+                </ul>
+              </div>
+              <div class="box" style="flex:1">
+                <h4>Opportunities</h4>
+                <ul>
+                  <li>Amazon AU launch = instant credibility</li>
+                  <li>UGC + review seeding = fast trust building</li>
+                  <li>Creator campaigns = proven conversion engine</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 8: GTM AU -->
+          <section class="slide" data-index="7" style="display:none">
+            <h2>Go-To-Market Strategy: Australia</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <h4>Amazon Launch Playbook</h4>
+                <ol>
+                  <li>50–100 review seeding (UGC + testers)</li>
+                  <li>Prime Delivery + Bundling (Trimmer + Nose Trimmer)</li>
+                  <li>“Sensitive Skin Safe” positioning</li>
+                </ol>
+              </div>
+              <div class="box" style="flex:1">
+                <h4>Influencer Layer</h4>
+                <p class="muted">Gym, lifestyle, barbers, male skincare creators — run a “Smooth in 15 minutes” challenge.</p>
+                <h4 style="margin-top:12px">Retail Lite</h4>
+                <p class="muted">Pop-ups in gyms / barbers & cross-selling.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 9: GTM ID -->
+          <section class="slide" data-index="8" style="display:none">
+            <h2>Go-To-Market Strategy: Indonesia</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <h4>TikTok Shop + Shopee First</h4>
+                <ul>
+                  <li>Creator-led demos</li>
+                  <li>Before / after videos</li>
+                  <li>Ramadan & wedding season campaigns</li>
+                </ul>
+              </div>
+              <div class="box" style="flex:1">
+                <h4>Pricing Strategy</h4>
+                <p class="muted">Slightly premium vs local brands. Bundles to drive LTV (Foil + Trimmer + Nose Trimmer).</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 10: Forecast -->
+          <section class="slide" data-index="9" style="display:none">
+            <h2>Forecast & KPIs (Direction Only)</h2>
+            <div class="columns" style="margin-top:12px">
+              <div class="box" style="flex:1">
+                <table>
+                  <thead><tr><th>Strategy</th><th>Expected Impact</th></tr></thead>
+                  <tbody>
+                    <tr><td>Amazon AU launch</td><td>+20–30% new customers</td></tr>
+                    <tr><td>TikTok ID launch</td><td>Viral potential, +40% monthly units</td></tr>
+                    <tr><td>Bundles</td><td>3× repeat purchase</td></tr>
+                    <tr><td>Influencer loops</td><td>-25% CAC</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="box" style="width:220px">
+                <h4 style="margin-top:0">Live KPI simulator</h4>
+                <p class="muted">Adjust expected lift to see impact</p>
+                <label>Amazon lift: <input type="range" id="amazonLift" min="0" max="60" value="25" /></label>
+                <div style="margin-top:8px">Projected new customers: <strong id="projCust">—</strong></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 11: Roadmap -->
+          <section class="slide" data-index="10" style="display:none">
+            <h2>90-Day Roadmap</h2>
+            <div class="timeline" style="margin-top:12px">
+              <div class="month box">
+                <h4>Month 1</h4>
+                <ul>
+                  <li>Amazon store + AU influencer seeding</li>
+                  <li>Review/tester program</li>
+                </ul>
+              </div>
+              <div class="month box">
+                <h4>Month 2</h4>
+                <ul>
+                  <li>TikTok Shop ID launch</li>
+                  <li>Top creators secured</li>
+                </ul>
+              </div>
+              <div class="month box">
+                <h4>Month 3</h4>
+                <ul>
+                  <li>Bundling strategy</li>
+                  <li>AU pop-up events</li>
+                  <li>Monthly reporting dashboards</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="controls">
+          <button class="btn" id="prev">◀ Prev</button>
+          <button class="btn" id="next">Next ▶</button>
+          <button class="btn ghost" id="download">Export HTML</button>
+        </div>
+
+      </main>
+    </div>
+
+    <footer style="margin-top:12px;color:var(--muted);font-size:13px">Tip: click slide titles on the left to jump — try the KPI simulator & AU/ID interactions.</footer>
+  </div>
+
+  <script>
+    // Navigation
+    const nav = document.getElementById('nav');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let cur = 0;
+
+    function show(i){
+      slides.forEach(s=>s.style.display='none');
+      slides[i].style.display='block';
+      cur = i;
+      document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));
+      const btn = document.querySelector('#nav button[data-i="'+i+'"]');
+      if(btn) btn.classList.add('active');
+    }
+    nav.addEventListener('click', e=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      show(Number(btn.dataset.i));
+    });
+    document.getElementById('prev').addEventListener('click', ()=> show(Math.max(0,cur-1)));
+    document.getElementById('next').addEventListener('click', ()=> show(Math.min(slides.length-1,cur+1)));
+
+    // KPI counters (simple animation)
+    function animateKPI(id, target, duration=900){
+      const el = document.getElementById(id); let start=0; const steps = Math.ceil(duration/30);
+      const inc = (target-start)/steps; let step=0; const t = setInterval(()=>{start+=inc; step++; el.textContent = (id==='kpi2' ? Math.round(start)+'%' : Math.round(start)+'%'); if(step>=steps){clearInterval(t);el.textContent=target+'%'} },30);
+    }
+    animateKPI('kpi1',20); animateKPI('kpi2',25);
+
+    // AU simulation
+    document.getElementById('auSim').addEventListener('click', ()=>{
+      const prime = document.getElementById('auPrime').checked;
+      const ugg = document.getElementById('auUGC').checked;
+      let impact = 12; if(prime) impact+=8; if(ugg) impact+=10; document.getElementById('auResult').textContent = `Projected short-term uplift: +${impact}% new customers (simulation)`;
+    });
+
+    // Table row interactivity
+    document.querySelectorAll('table tbody tr').forEach(row=>{
+      row.style.cursor='pointer';
+      row.addEventListener('click', ()=>{
+        row.style.background='linear-gradient(90deg, rgba(16,185,129,0.12), rgba(96,165,250,0.06))';
+        navigator.clipboard && navigator.clipboard.writeText(row.innerText).catch(()=>{});
+        setTimeout(()=>row.style.background='transparent',1400);
+      });
+    });
+
+    // KPI simulator
+    const amazonLift = document.getElementById('amazonLift');
+    const projCust = document.getElementById('projCust');
+    function updateProj(){
+      const lift = Number(amazonLift.value); // baseline customers 10k
+      const baseline = 10000; const projected = Math.round(baseline * (1 + lift/100));
+      projCust.textContent = projected.toLocaleString();
+    }
+    amazonLift.addEventListener('input', updateProj); updateProj();
+
+    // Product demo (placeholder micro-interaction)
+    document.getElementById('replayHero').addEventListener('click', ()=>{
+      alert('Imagine a 15s creator demo: quick trim, splash water, close-up of no-nicks. Use this in hero UGC.')
+    });
+
+    // Export HTML (generates a downloadable file)
+    document.getElementById('download').addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'nateskin-expansion-prototype.html'; document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // keyboard shortcuts
+    window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') document.getElementById('next').click(); if(e.key==='ArrowLeft') document.getElementById('prev').click(); });
+
+  </script>
+</body>
+</html>
