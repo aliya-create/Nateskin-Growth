@@ -349,9 +349,7 @@
 
       </main>
     </div>
-
-    <footer style="margin-top:12px;color:var(--muted);font-size:13px">Tip: click slide titles on the left to jump — try the KPI simulator & AU/ID interactions.</footer>
-  </div>
+    
 
   <script>
     // Navigation
@@ -409,16 +407,32 @@
     amazonLift.addEventListener('input', updateProj); updateProj();
 
     // Product demo (placeholder micro-interaction)
-    document.getElementById('replayHero').addEventListener('click', ()=>{
-      alert('Imagine a 15s creator demo: quick trim, splash water, close-up of no-nicks. Use this in hero UGC.')
-    });
-
-    // Export HTML (generates a downloadable file)
-    document.getElementById('download').addEventListener('click', ()=>{
-      const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'nateskin-expansion-prototype.html'; document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
+    document.getElementById('replayHero').addEventListener('click', () => {
+      const path = prompt("Choose a path to run the GTM demo:
+1 = Australia Launch
+2 = Indonesia Launch
+3 = Full Expansion Run");
+      if(!path) return;
+      if(path === '1'){
+        alert('🇦🇺 Australia GTM Run:
+• Launch Amazon AU
+• Add Prime Delivery + Bundles
+• Seed 100 reviews
+• Run Gym/Lifestyle creator ads
+Result → Fast trust + +20–30% new customers');
+      } else if(path === '2'){
+        alert('🇮🇩 Indonesia GTM Run:
+• TikTok Shop first
+• Creator-led before/after demos
+• Ramadan & wedding season blitz
+Result → Viral loops + +40% monthly units');
+      } else if(path === '3'){
+        alert('🌍 Full Expansion Run:
+AU Amazon credibility + ID TikTok virality = dual-engine growth.
+Projected result: Strong reviews → lower CAC → rapid market adoption.');
+      } else {
+        alert('Invalid option — choose 1, 2, or 3.');
+      }
     });
 
     // keyboard shortcuts
